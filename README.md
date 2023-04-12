@@ -9,7 +9,7 @@ https://t.me/LucasBotLocalTestsBot
 _Production_
 
 deploy:
-`firebase deploy --only functions``
+`firebase deploy --only functions`
 
 bot URL:
 https://t.me/BerkeleyPortugueseBot

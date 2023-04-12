@@ -1,0 +1,19 @@
+{
+  "name": "berkeleyportuguesebot",
+  "version": "1.0.0",
+  "description": "Bot usado na campanha de pregação da Bay Area.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Polo",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^11.6.0",
+    "node-telegram-bot-api": "^0.61.0",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  }
+}

@@ -72,4 +72,4 @@ serviceAccountKey.json
 telegramTokens.json
 
 #DataBase URLs
-databaseUrls.json
+databaseUrls.json.DS_Store

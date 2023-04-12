@@ -1,7 +1,7 @@
 _Local_
 
 run:
-nodemon ./functions/dev.js
+`nodemon ./functions/dev.js`
 
 bot URL:
 https://t.me/LucasBotLocalTestsBot

@@ -78,3 +78,5 @@ databaseUrls.json
 
 #Alba Credentials
 albaCredentials.json
+
+.runtimeconfig.json

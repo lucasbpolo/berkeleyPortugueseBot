@@ -1,46 +1,26 @@
-const request = require('request');
-const retry = require('retry');
+const axios = require('axios');
 const albaTerritoriesEndPoint =
   require('../albaCredentials.json').territoriesEndPoint;
 
-const requestAlbaTerritories = (cookie) => {
-  return new Promise((resolve, reject) => {
-    const operation = retry.operation({
-      retries: 3,
-      factor: 1,
-      minTimeout: 1000,
-      maxTimeout: 5000,
-      randomize: true,
-    });
+const requestAlbaTerritories = async (cookie) => {
+  console.log('[requestAlbaTerritories] inside promisse');
+  const options = {
+    url: albaTerritoriesEndPoint,
+    headers: {
+      Cookie: cookie,
+    },
+  };
 
-    operation.attempt((currentAttempt) => {
-      const options = {
-        url: albaTerritoriesEndPoint,
-        headers: {
-          Cookie: cookie,
-        },
-      };
-
-      request(options, (error, response, body) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-
-        // Check if cookie is still valid
-        if (response.statusCode === 401) {
-          if (operation.retry(error)) {
-            return;
-          }
-        }
-
-        const parsedJSON = JSON.parse(body);
-
-        const territories = parsedJSON.data.html.territories;
-        resolve(territories);
-      });
-    });
-  });
+  try {
+    const response = await axios(options);
+    console.log('[requestAlbaTerritories] has response');
+    const territories = response.data.data.html.territories;
+    console.log('[requestAlbaTerritories] resolve about to be fired');
+    return territories;
+  } catch (error) {
+    console.log('[requestAlbaTerritories] error', error);
+    throw error || new Error('Failed to authenticate');
+  }
 };
 
 module.exports = requestAlbaTerritories;

@@ -65,29 +65,46 @@ const init = ({ db, telegramToken, albaCookie, env }) => {
     }
   });
 
-  bot.onText(/\/territorio/, (msg) => {
-    validateUserIds(db)(msg, async () => {
+  bot.onText(/\/territorio/, async (msg) => {
+    try {
+      console.log('[territorio]');
       const albaHTML = await requestAlbaTerritories(albaCookie);
 
-      const territoriesJSON = parseAlbaHTML(albaHTML);
+      console.log('[territorio] [albaHTML]');
 
-      const randomIndex = Math.floor(Math.random() * territoriesJSON.length);
-      const territory = territoriesJSON[randomIndex];
+      const validate = validateUserIds(db);
 
-      const territoryURL = territory.details[2].url;
-      const territoryId = territory.id;
-      const territoryName = territory.territory;
-      const territoryCity = territory.city;
+      await validate(msg, async () => {
+        console.log('[territorio] user Ids validates');
 
-      const userId = msg.from.id;
+        const territoriesJSON = parseAlbaHTML(albaHTML);
 
-      bot.sendMessage(
-        msg.chat.id,
-        `Você foi designado para trabalhar no território: \n${territoryName}\n\nNa cidade(s) de:\n${territoryCity}.\n\nAqui está o link para o seu território:\n${territoryURL}`
-      );
-    }).catch((err) => {
+        console.log('[territorio] territoriesJSON parsed');
+
+        const randomIndex = Math.floor(Math.random() * territoriesJSON.length);
+        const territory = territoriesJSON[randomIndex];
+
+        const territoryURL = territory.details[2].url;
+        const territoryId = territory.id;
+        const territoryName = territory.territory;
+        const territoryCity = territory.city;
+
+        const userId = msg.from.id;
+
+        console.log(
+          '[territorio] return message about to be sent, territoryID = '
+        );
+        bot.sendMessage(
+          msg.chat.id,
+          `Você foi designado para trabalhar no território: \n${territoryName}\n\nNa cidade(s) de:\n${territoryCity}.\n\nAqui está o link para o seu território:\n${territoryURL}`
+        );
+
+        console.log('[territorio] return message sent');
+      });
+    } catch (err) {
+      console.log('[territorio] error message ### ', err);
       bot.sendMessage(msg.chat.id, err.message);
-    });
+    }
   });
 
   bot.onText(/\/devolver/, (msg) => {

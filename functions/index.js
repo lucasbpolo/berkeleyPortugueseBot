@@ -27,7 +27,12 @@ const init = require('./bot');
 const bot = init({ db, telegramToken, albaCookie, env });
 
 //CREATING CLOUD FUNCTION
-exports.bot = functions.https.onRequest((req, res) => {
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+exports.bot = functions.https.onRequest(async (req, res) => {
   bot.processUpdate(req.body);
+  await delay(10000); // Wait for 10 seconds
   res.sendStatus(200);
 });

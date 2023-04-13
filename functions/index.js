@@ -18,10 +18,13 @@ const db = admin.database();
 // TELEGRAM TOKEN
 const telegramToken = require('./telegramTokens.json').prd;
 
+// ALBA
+albaCookie = require('./albaCredentials.json').cookie;
+
 // INIT BOT
 const init = require('./bot');
 
-const bot = init({ db, telegramToken, env });
+const bot = init({ db, telegramToken, albaCookie, env });
 
 //CREATING CLOUD FUNCTION
 exports.bot = functions.https.onRequest((req, res) => {

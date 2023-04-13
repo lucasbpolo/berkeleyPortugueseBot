@@ -1,7 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 const validateUserIds = require('./utils/validateUserIds');
+const parseAlbaHTML = require('./utils/parseAlbaHTML');
+const requestAlbaTerritories = require('./utils/requestAlbaTerritories');
 
-const init = ({ db, telegramToken, env }) => {
+const init = ({ db, telegramToken, albaCookie, env }) => {
   const isDevEnv = env === 'DEV';
 
   const bot = new TelegramBot(telegramToken, {
@@ -64,12 +66,25 @@ const init = ({ db, telegramToken, env }) => {
   });
 
   bot.onText(/\/territorio/, (msg) => {
-    validateUserIds(db)(msg, () => {
-      const userId = msg.from.id;
-      const url =
-        'https://www.mcmxiv.com/alba/print-mk?territory=4096,596510,rp3by9,63dd3cb7&&address_only=0&m=1&o=1&l=1&d=1&c_n=1&c_t=1&c_l=1&c_nt=1&g=0&cl=1&clm=20&clss=1&st=1,2,3'; // Replace this with your URL generation logic
+    validateUserIds(db)(msg, async () => {
+      const albaHTML = await requestAlbaTerritories(albaCookie);
 
-      bot.sendMessage(msg.chat.id, `O Link do seu Território é:\n\n${url}`);
+      const territoriesJSON = parseAlbaHTML(albaHTML);
+
+      const randomIndex = Math.floor(Math.random() * territoriesJSON.length);
+      const territory = territoriesJSON[randomIndex];
+
+      const territoryURL = territory.details[2].url;
+      const territoryId = territory.id;
+      const territoryName = territory.territory;
+      const territoryCity = territory.city;
+
+      const userId = msg.from.id;
+
+      bot.sendMessage(
+        msg.chat.id,
+        `Você foi designado para trabalhar no território: \n${territoryName}\n\nNa cidade(s) de:\n${territoryCity}.\n\nAqui está o link para o seu território:\n${territoryURL}`
+      );
     }).catch((err) => {
       bot.sendMessage(msg.chat.id, err.message);
     });

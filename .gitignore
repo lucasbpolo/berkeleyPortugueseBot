@@ -75,3 +75,6 @@ telegramTokens.json
 databaseUrls.json
 
 .DS_Store
+
+#Alba Credentials
+albaCredentials.json

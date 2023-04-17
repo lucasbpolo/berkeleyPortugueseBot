@@ -46,6 +46,14 @@ Make sure to grab the bot token, Firebase service account, Alba credentials, etc
 1. Run `firebase deploy --only functions` to deploy the bot.
 2. After deployment, you can find the production bot at this URL: https://t.me/BerkeleyPortugueseBot.
 
+## Cloud Console logs URL
+
+https://console.cloud.google.com/logs/query;query=resource.type%3D%22cloud_function%22%20resource.labels.function_name%3D%22bot%22%20resource.labels.region%3D%22us-central1%22;cursorTimestamp=2023-04-17T22:03:42.365414237Z?project=berkeleyportuguesebot&authuser=1&hl=en
+
+## Database URL
+
+https://console.firebase.google.com/u/1/project/berkeleyportuguesebot/database/berkeleyportuguesebot-default-rtdb/data
+
 ## Code Structure
 
 The code that runs locally uses the `node-telegram-bot-api` library in polling mode, while the code that runs in the Firebase function uses the webhook functionality of the library. The main purpose of having a local version is to expedite development.

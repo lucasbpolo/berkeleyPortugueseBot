@@ -32,7 +32,7 @@ To use the `firebase deploy --only functions` command, you'll need to install th
 
 ### Installation
 
-Make sure to grab the bot token and Firebase service account from Dropbox (ask Lucas for access).
+Make sure to grab the bot token, Firebase service account, Alba credentials, etc from Dropbox (ask Jonathan for access): https://www.dropbox.com/home/Schedules/BerkeleyPortugueseBotCredentials?di=left_nav_browse/.
 
 1. Clone the repository and navigate to the root folder.
 2. Run `npm install` in the root folder.

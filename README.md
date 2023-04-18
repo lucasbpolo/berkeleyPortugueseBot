@@ -4,6 +4,10 @@
 
 https://github.com/lucasbpolo/berkeleyPortugueseBot
 
+## Trello Board
+
+https://trello.com/b/FKvblX6h/campanha-de-prega%C3%A7%C3%A3o
+
 ## Getting Started
 
 ### Prerequisites

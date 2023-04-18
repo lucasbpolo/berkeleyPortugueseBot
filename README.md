@@ -60,9 +60,28 @@ https://console.firebase.google.com/u/1/project/berkeleyportuguesebot/database/b
 
 ## Code Structure
 
+### main functions 
+
+| File	                | Description	     | Details
+| ------                | ------             | ------ 
+| ./functions/bot.js    | Main Bot Code	     | Imports telebot, alba credentials, and userids. Initializes a telebot instance with the token.
+| ./functions/dev.js	| Local Code deployment	| Will send data to LucasBotLocalTestsBot.
+| ./functions/index.js	| Production Code deployment	| Will send data to BerkeleyPortugueseBot.
+
+
+### utils 
+
+| File  	              | Description	       | Details
+| ------                  | ------             | ------
+| utils/parseAlbaHTML.js | Parse Alba HTML	|   Extracts id, territory, city, status, and details. Exports these values.
+| utils/requestAlbaTerritories.js	| Request Alba Territories	| Fetches HTML for requesting territories.
+| utils/validateUserIds.js	        | Validate User IDs	| Validates the user IDs for authentication.
+
+
 The code that runs locally uses the `node-telegram-bot-api` library in polling mode, while the code that runs in the Firebase function uses the webhook functionality of the library. The main purpose of having a local version is to expedite development.
 
 The initialization of the local code is in `./functions/dev.js`, while the initialization of the code that runs in the Firebase function is in `./functions/index.js`. Both of these files reuse code for the bot that is located in `./functions/bot.js`.
+
 
 ## Bot code
 

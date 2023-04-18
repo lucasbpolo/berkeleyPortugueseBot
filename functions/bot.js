@@ -95,9 +95,9 @@ const init = ({ db, telegramToken, albaCookie, env }) => {
           msg.chat.id,
           'Você gostaria de um territorio em qual região?\n\nDigite:\n\n1 - para a região de Marin\n2 - para a região do salão do Reino\n3 - para a região de Wallnut Creek'
         );
-      }
 
-      chatStates[msg.chat.id] = 'awaitingRegion';
+        chatStates[msg.chat.id] = 'awaitingRegion';
+      }
     }).catch((err) => {
       bot.sendMessage(msg.chat.id, err.message);
     });
